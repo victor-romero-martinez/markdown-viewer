@@ -11,6 +11,10 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --primary: #ff8906;
+  --secondary: #16161a;
+  --tertiary: #0f0e17;
+  --focus: #2cb67d;
 }
 
 * {
@@ -20,16 +24,18 @@
 body {
   height: 100dvh;
   margin: 0;
+  background-color: var(--tertiary);
 }
 
 pre, code {
-  background-color: #0a0a23;
+  background-color: var(--secondary);
   padding: .5em;
+  border-radius: .2vmax;
 }
 
  blockquote {
-  border-left: 3px solid #224b4b;
-  color: #224b4b;
+  border-left: 3px solid var(--focus);
+  color: var(--focus);
   padding-left: 5px;
   margin-left: 25px;
 }
@@ -39,25 +45,41 @@ pre, code {
 }
 
 #preview td, #preview th {
-  border: 2px solid #224b4b;
+  border: 2px solid var(--focus);
   padding-left: 5px;
   padding-right: 5px;
 }
 
 img {
-  width: max(690px);
+  width: min(320px 690px);
+  max-width: 690px;
 }
 
 main, .wrapper, .toolbar {
   display: flex;
 }
 
-main, .toolbar {
+main {
+  gap: 1rem;
+}
+
+#wrapper, .toolbar {
   justify-content: space-between;
 }
 
-main {
-  gap: 1rem;
+.wrapper {
+  width: 100%;
+  height: 100dvh;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.toolbar {
+  color: var(--secondary);
+  background-color: var(--primary);
+  padding: 8px 16px;
+  border-radius: .5vmax .5vmax 0 0;
+  border: 1px solid transparent;
 }
 
 .toolbar span:nth-child(2) {
@@ -66,29 +88,32 @@ main {
   font-weight: 700;
 }
 
-.wrapper {
-  width: 100%;
-  height: 100dvh;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
-}
-
 textarea {
   width: 100%;
   height: 100%;
   resize: none;
-  border-radius: 0 0 .5vmax .5vmax;
-  
+  background-color: var(--secondary);
+  border-color: transparent;
+  border-radius: 0 0 .5vmax .5vmax; 
+  border-top: none;
 }
 
-#editor, #preview {
+textarea:focus {
+  border-color: var(--focus);
+  outline: none;
+}
+
+#editor {
   padding: 16px;
+}
+
+.wrapper:has(#editor:focus) > .toolbar {
+  border-color: var(--focus);
+  border-bottom: none;
 }
 
 #preview {
   overflow: overlay;
-  padding-top: 0;
 }
 
 /* icon rotation */
@@ -111,12 +136,13 @@ textarea {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: #16161a;
+    --primary: #faae2b;
+    --secondary: #c3f0ca;
+    --tertiary: #f2f7f5;
+    --focus: #00473e;
   }
-  a:hover {
-    color: #747bff;
-  }
+
   button {
     background-color: #f9f9f9;
   }
