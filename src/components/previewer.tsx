@@ -6,11 +6,7 @@ import Wrapper from "./wrapper";
 export default function Previewer({ markdown }: { markdown: string }) {
   return (
     <>
-      <Wrapper
-        label="Preview"
-        icon={<MarkdownIcon />}
-        toggleIcon={<ToggleIcon direction="left" />}
-      >
+      <Wrapper label="Preview" icon={<MarkdownIcon />} toggle={<ToggleIcon />}>
         <div
           id="preview"
           dangerouslySetInnerHTML={{

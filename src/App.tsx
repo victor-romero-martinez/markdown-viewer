@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      <main>
+      <main style={{}}>
         <Editor
           text={text}
           inputTextArea={(inputValue) => setText(inputValue)}

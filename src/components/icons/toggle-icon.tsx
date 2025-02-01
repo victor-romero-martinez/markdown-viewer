@@ -1,6 +1,4 @@
-type DirIcon = "right" | "left" | "up" | "down";
-
-export default function ToggleIcon({ direction }: { direction: DirIcon }) {
+export default function ToggleIcon() {
   return (
     <>
       <svg
@@ -13,7 +11,7 @@ export default function ToggleIcon({ direction }: { direction: DirIcon }) {
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className={direction}
+        className="toggle-arrow"
       >
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
         <path d="M6 6l6 6l-6 6" />

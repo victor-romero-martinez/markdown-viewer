@@ -11,6 +11,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
   --primary: #ff8906;
   --secondary: #16161a;
   --tertiary: #0f0e17;
@@ -22,70 +23,14 @@
 }
 
 body {
-  height: 100dvh;
   margin: 0;
   background-color: var(--tertiary);
 }
 
-pre, code {
-  background-color: var(--secondary);
-  padding: .5em;
-  border-radius: .2vmax;
-}
-
- blockquote {
-  border-left: 3px solid var(--focus);
-  color: var(--focus);
-  padding-left: 5px;
-  margin-left: 25px;
-}
-
-#preview table {
-  border-collapse: collapse;
-}
-
-#preview td, #preview th {
-  border: 2px solid var(--focus);
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-img {
-  width: min(320px 690px);
-  max-width: 690px;
-}
-
-main, .wrapper, .toolbar {
-  display: flex;
-}
-
 main {
-  gap: 1rem;
-}
-
-#wrapper, .toolbar {
-  justify-content: space-between;
-}
-
-.wrapper {
-  width: 100%;
   height: 100dvh;
-  flex-direction: column;
-  padding: 1rem;
-}
-
-.toolbar {
-  color: var(--secondary);
-  background-color: var(--primary);
-  padding: 8px 16px;
-  border-radius: .5vmax .5vmax 0 0;
-  border: 1px solid transparent;
-}
-
-.toolbar span:nth-child(2) {
-  flex: 1;
-  margin-left: .8em;
-  font-weight: 700;
+  display: flex;
+  flex-direction: row;
 }
 
 textarea {
@@ -94,7 +39,7 @@ textarea {
   resize: none;
   background-color: var(--secondary);
   border-color: transparent;
-  border-radius: 0 0 .5vmax .5vmax; 
+  border-radius: 0 0 .5vmax .5vmax;
   border-top: none;
 }
 
@@ -103,13 +48,87 @@ textarea:focus {
   outline: none;
 }
 
+pre,
+code {
+  background-color: var(--secondary);
+  padding: .5em;
+  border-radius: .2vmax;
+}
+
+blockquote {
+  border-left: 3px solid var(--focus);
+  color: var(--focus);
+  padding-left: 5px;
+  margin-left: 25px;
+}
+
+img {
+  min-width: 320px;
+  max-width: 690px;
+  width: 100%;
+  background-color: var(--secondary);
+}
+
+#preview table {
+  border-collapse: collapse;
+}
+
+#preview td,
+#preview th {
+  border: 2px solid var(--focus);
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.wrapper,
+.toolbar,
+.toolbar label {
+  display: flex;
+}
+
+#wrapper,
+.toolbar {
+  justify-content: space-between;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  padding: 1rem;
+  overflow: auto;
+}
+
+.toolbar {
+  color: var(--secondary);
+  background-color: var(--primary);
+  padding: 8px 16px;
+  border-radius: .5vmax .5vmax 0 0;
+  border: 1px solid transparent;
+  border-bottom: none;
+
+  label {
+    align-items: center;
+    cursor: pointer;
+  }
+
+  label input {
+    display: none;
+  }
+
+  &>span:nth-child(2) {
+    flex: 1;
+    margin-left: .8em;
+    font-weight: 700;
+  }
+}
+
 #editor {
   padding: 16px;
 }
 
-.wrapper:has(#editor:focus) > .toolbar {
+.wrapper:has(#editor:focus)>.toolbar {
   border-color: var(--focus);
-  border-bottom: none;
 }
 
 #preview {
@@ -117,22 +136,76 @@ textarea:focus {
 }
 
 /* icon rotation */
-.right {
+.wrapper:has(#editor) .toggle-arrow {
   rotate: 0deg;
 }
 
-.left {
+.wrapper:has(#preview) .toggle-arrow {
   rotate: 180deg;
 }
 
-.up {
-  rotate: 270deg;
+/* toggle full screen */
+/* expand editor */
+.wrapper[data-expand=editor]:has(#preview) {
+  flex-basis: 0;
+  /* visibility: hidden; */
+  display: none;
 }
 
-.down {
-  rotate: 90deg;
+.wrapper[data-expand=editor]:has(#editor) .toggle-arrow {
+  rotate: 180deg;
 }
 
+/* expand preview */
+.wrapper[data-expand=preview]:has(#editor) {
+  flex-basis: 0;
+  /* visibility: hidden; */
+  display: none;
+}
+
+.wrapper[data-expand=preview]:has(#preview) .toggle-arrow {
+  rotate: 0deg;
+}
+
+
+@media (max-width: 1439px) {
+  main {
+    flex-direction: column;
+  }
+
+
+  /* icon rotation */
+  .wrapper:has(#editor) .toggle-arrow {
+    rotate: 90deg;
+  }
+
+  .wrapper:has(#preview) .toggle-arrow {
+    rotate: 270deg;
+  }
+
+  /* toggle full screen */
+  /* expand editor */
+  .wrapper[data-expand=editor]:has(#preview) {
+    flex-basis: 0;
+    /* visibility: hidden; */
+    display: none;
+  }
+
+  .wrapper[data-expand=editor]:has(#editor) .toggle-arrow {
+    rotate: 270deg;
+  }
+
+  /* expand preview */
+  .wrapper[data-expand=preview]:has(#editor) {
+    flex-basis: 0;
+    /* visibility: hidden; */
+    display: none;
+  }
+
+  .wrapper[data-expand=preview]:has(#preview) .toggle-arrow {
+    rotate: 90deg;
+  }
+}
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -141,9 +214,5 @@ textarea:focus {
     --secondary: #c3f0ca;
     --tertiary: #f2f7f5;
     --focus: #00473e;
-  }
-
-  button {
-    background-color: #f9f9f9;
   }
 }

@@ -13,7 +13,8 @@ export default function Editor({ text, inputTextArea }: Props) {
       <Wrapper
         icon={<CodeIcon />}
         label="Editor"
-        toggleIcon={<ToggleIcon direction="right" />}
+        toggle={<ToggleIcon direction="right" />}
+        isFull="middle"
       >
         <textarea
           name="editor"
