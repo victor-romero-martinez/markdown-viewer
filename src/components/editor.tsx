@@ -10,12 +10,7 @@ interface Props {
 export default function Editor({ text, inputTextArea }: Props) {
   return (
     <>
-      <Wrapper
-        icon={<CodeIcon />}
-        label="Editor"
-        toggle={<ToggleIcon direction="right" />}
-        isFull="middle"
-      >
+      <Wrapper icon={<CodeIcon />} label="Editor" toggle={<ToggleIcon />}>
         <textarea
           name="editor"
           id="editor"
