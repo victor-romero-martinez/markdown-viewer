@@ -197,7 +197,7 @@ img {
   }
 }
 
-@media (max-width: 1439px) {
+@media (max-width: 1023px) {
   main {
     flex-direction: column;
   }
