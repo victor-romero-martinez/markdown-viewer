@@ -95,6 +95,7 @@ img {
   width: 100%;
   height: 100%;
   flex-direction: column;
+  flex-basis: 100%;
   padding: 1rem;
   overflow: auto;
 }
@@ -136,6 +137,10 @@ img {
 }
 
 /* icon rotation */
+.toggle-arrow {
+  transition: rotate .2s ease-in-out;
+}
+
 .wrapper:has(#editor) .toggle-arrow {
   rotate: 0deg;
 }
@@ -143,30 +148,53 @@ img {
 .wrapper:has(#preview) .toggle-arrow {
   rotate: 180deg;
 }
+/* end */
 
-/* toggle full screen */
+/* INFO: toggle full screen */
 /* expand editor */
 .wrapper[data-expand=editor]:has(#preview) {
-  flex-basis: 0;
-  /* visibility: hidden; */
-  display: none;
+  animation: expand .2s ease-out forwards;
 }
 
 .wrapper[data-expand=editor]:has(#editor) .toggle-arrow {
   rotate: 180deg;
 }
+/* end */
 
 /* expand preview */
 .wrapper[data-expand=preview]:has(#editor) {
-  flex-basis: 0;
-  /* visibility: hidden; */
-  display: none;
+  animation: expand .2s ease-out forwards;
 }
 
 .wrapper[data-expand=preview]:has(#preview) .toggle-arrow {
   rotate: 0deg;
 }
+/* end */
 
+.wrapper[data-last=editor] {
+  animation: expand-none .2s ease-out forwards;
+}
+
+.wrapper[data-last=preview] {
+  animation: expand-none .2s ease-out forwards;
+}
+
+@keyframes expand {
+  to {
+    flex-basis: 0%;
+    display: none;
+  }
+}
+
+@keyframes expand-none {
+  from {
+    flex-basis: 0%;
+  }
+  to {
+    flex-basis: 100%;
+    display: flex;
+  }
+}
 
 @media (max-width: 1439px) {
   main {
@@ -185,23 +213,11 @@ img {
 
   /* toggle full screen */
   /* expand editor */
-  .wrapper[data-expand=editor]:has(#preview) {
-    flex-basis: 0;
-    /* visibility: hidden; */
-    display: none;
-  }
-
   .wrapper[data-expand=editor]:has(#editor) .toggle-arrow {
     rotate: 270deg;
   }
 
   /* expand preview */
-  .wrapper[data-expand=preview]:has(#editor) {
-    flex-basis: 0;
-    /* visibility: hidden; */
-    display: none;
-  }
-
   .wrapper[data-expand=preview]:has(#preview) .toggle-arrow {
     rotate: 90deg;
   }

@@ -14,14 +14,14 @@ export default function Wrapper({
   children,
 }: WrapperProps) {
   const labelToLower = label.toLowerCase();
-  const tab = useStore();
+  const { elementHide, lastElement, update } = useStore();
 
   const handleCheck = (_e: React.ChangeEvent<HTMLInputElement>) => {
-    tab.update(labelToLower as "none");
+    update(labelToLower as "none");
   };
 
   return (
-    <div className="wrapper" data-expand={tab.elementHide}>
+    <div className="wrapper" data-expand={elementHide} data-last={lastElement}>
       <div className="toolbar">
         <span>{icon}</span>
         <span>{label}</span>
